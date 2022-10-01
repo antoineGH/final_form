@@ -9,9 +9,9 @@ type InitialValues = {
 
 const initialValues: InitialValues = { firstName: '', lastName: '', employed: false }
 
-type InitialState = InitialValues | {}
+type InitialState = InitialValues
 
-const initialState: InitialState = {}
+const initialState: InitialState = initialValues
 
 const formReducer = (state: any, action: any) => {
 	switch (action.type) {
@@ -31,20 +31,23 @@ const formReducer = (state: any, action: any) => {
 export const MyForm = () => {
 	const [formState, dispatch] = useReducer(formReducer, initialState)
 
-	const onSubmit = (values: any): void => {
-		console.log(values)
+	const onSubmit = (e: any): void => {
+		e.preventDefault()
+		console.log(formState)
 	}
 
 	const handleTextChange = (e: any) => {
-		console.log(e.target.value)
-		dispatch({ type: 'HANDLE TEXT', field: e.target.firstName, payload: e.target.value })
+		dispatch({ type: 'HANDLE TEXT', field: e.target.name, payload: e.target.value })
+	}
+	const handleToggleEmployed = () => {
+		dispatch({ type: 'TOGGLE EMPLOYED' })
 	}
 	return (
 		<Form
 			onSubmit={onSubmit}
 			initialValues={initialValues}
-			render={({ handleSubmit, form, submitting, pristine, values }) => (
-				<form onSubmit={handleSubmit}>
+			render={({ handleSubmit }) => (
+				<form onSubmit={(e) => onSubmit(e)}>
 					<div>
 						<label>First Name</label>
 						<input
@@ -67,12 +70,10 @@ export const MyForm = () => {
 					</div>
 					<div>
 						<label>Employed</label>
-						<Field name='employed' component='input' type='checkbox' />
+						<input name='employed' type='checkbox' onChange={handleToggleEmployed} />
 					</div>
 					<div className='buttons'>
-						<button type='submit' disabled={submitting || pristine}>
-							Submit
-						</button>
+						<button type='submit'>Submit</button>
 					</div>
 				</form>
 			)}
