@@ -4,9 +4,10 @@ import { Field, Form } from 'react-final-form'
 type InitialValues = {
 	firstName: string
 	lastName: string
+	employed: boolean
 }
 
-const initialValues: InitialValues = { firstName: '', lastName: '' }
+const initialValues: InitialValues = { firstName: '', lastName: '', employed: false }
 
 type InitialState = InitialValues | {}
 
@@ -32,6 +33,10 @@ export const MyForm = () => {
 					<div>
 						<label>Last Name</label>
 						<Field name='lastName' component='input' type='text' placeholder='Last Name' />
+					</div>
+					<div>
+						<label>Employed</label>
+						<Field name='employed' component='input' type='checkbox' />
 					</div>
 					<div className='buttons'>
 						<button type='submit' disabled={submitting || pristine}>
