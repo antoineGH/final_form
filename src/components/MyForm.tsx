@@ -1,4 +1,5 @@
 import { Field, Form } from 'react-final-form'
+import { useForm } from '../contexts/FormContext'
 
 type Values = {
 	firstName: string
@@ -9,8 +10,10 @@ type Values = {
 const initialValues: Values = { firstName: '', lastName: '', employed: false }
 
 export const MyForm = () => {
+	const { setForm } = useForm()
 	const onSubmit = (values: Values): void => {
-		console.log(values)
+		// console.log(values)
+		setForm(values)
 	}
 
 	return (

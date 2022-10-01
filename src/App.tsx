@@ -1,12 +1,17 @@
 import React from 'react'
 import './App.css'
+import { Comp } from './components/Comp'
 import { MyForm } from './components/MyForm'
+import { Contexts } from './contexts/indexs'
 
 function App() {
 	return (
-		<div className='App'>
-			<MyForm />
-		</div>
+		<Contexts>
+			<div className='App'>
+				<MyForm />
+				<Comp />
+			</div>
+		</Contexts>
 	)
 }
 
