@@ -13,13 +13,32 @@ type InitialState = InitialValues | {}
 
 const initialState: InitialState = {}
 
+const formReducer = (state: any, action: any) => {
+	switch (action.type) {
+		case 'HANDLE TEXT':
+			return {
+				...state,
+				[action.field]: action.payload,
+			}
+		case 'TOGGLE EMPLOYED':
+			return {
+				...state,
+				employed: !state.employed,
+			}
+	}
+}
+
 export const MyForm = () => {
+	const [formState, dispatch] = useReducer(formReducer, initialState)
+
 	const onSubmit = (values: any): void => {
 		console.log(values)
 	}
 
-	const [state, dispatch] = useReducer((prevState: any, values: any) => ({ ...prevState, ...values }), initialState)
-
+	const handleTextChange = (e: any) => {
+		console.log(e.target.value)
+		dispatch({ type: 'HANDLE TEXT', field: e.target.firstName, payload: e.target.value })
+	}
 	return (
 		<Form
 			onSubmit={onSubmit}
@@ -28,11 +47,23 @@ export const MyForm = () => {
 				<form onSubmit={handleSubmit}>
 					<div>
 						<label>First Name</label>
-						<Field name='firstName' component='input' type='text' placeholder='First Name' />
+						<input
+							name='firstName'
+							value={formState.firstName}
+							type='text'
+							placeholder='First Name'
+							onChange={(e: any) => handleTextChange(e)}
+						/>
 					</div>
 					<div>
 						<label>Last Name</label>
-						<Field name='lastName' component='input' type='text' placeholder='Last Name' />
+						<input
+							name='lastName'
+							value={formState.lastName}
+							type='text'
+							placeholder='Last Name'
+							onChange={(e: any) => handleTextChange(e)}
+						/>
 					</div>
 					<div>
 						<label>Employed</label>
