@@ -43,3 +43,7 @@ STEPS
 -   Adding form level validation
 
     https://www.codingdeft.com/posts/react-form-validation/#react-final-form
+
+    https://medium.com/swlh/usereducer-form-example-16675fa60229
+
+    https://dev.to/craigaholliday/using-the-usereducer-hook-in-react-with-typescript-27m1
